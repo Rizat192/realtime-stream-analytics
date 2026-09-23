@@ -1,0 +1,173 @@
+{
+  "dataset": {
+    "minute_windows": 4320,
+    "anomalous_minutes": 468,
+    "anomaly_rate": 0.10833333333333334,
+    "anomaly_types": {
+      "traffic_drop": 175,
+      "latency_spike": 114,
+      "error_burst": 105,
+      "traffic_surge": 74
+    },
+    "mean_requests_per_minute": 62.714120370370374,
+    "mean_latency_p95": 332.8590375,
+    "mean_error_rate": 0.020331588923439965
+  },
+  "timeseries": {
+    "points": 4320,
+    "frequency": "1min",
+    "mean_requests_per_minute": 62.714120370370374,
+    "std_requests_per_minute": 31.70521469294849,
+    "linear_trend_per_minute": 0.00011985188030281322,
+    "linear_trend_per_day": 0.17258670763605102,
+    "linear_intercept": 62.45530023485642,
+    "adf_statistic": -3.9175122283523374,
+    "adf_pvalue": 0.001909680801979464,
+    "acf_lag_1": 0.8779255520550187,
+    "acf_lag_60": 0.5684891254656824,
+    "acf_lag_1440": 0.37728598440682964,
+    "seasonal_strength": 0.901001729949043,
+    "trend_strength": 0.13696303896964335,
+    "peak_hour": 8,
+    "trough_hour": 0
+  },
+  "anomaly": [
+    {
+      "method": "rolling robust z score",
+      "alarms": 200,
+      "positives": 122,
+      "precision": 0.525,
+      "recall": 0.860655737704918,
+      "f1": 0.6521739130434783,
+      "roc_auc": 0.9250635350629766,
+      "pr_auc": 0.5685270419484675,
+      "anomaly_events": 8,
+      "events_detected": 8,
+      "event_recall": 1.0
+    },
+    {
+      "method": "isolation forest",
+      "alarms": 54,
+      "positives": 122,
+      "precision": 1.0,
+      "recall": 0.4426229508196721,
+      "f1": 0.6136363636363636,
+      "roc_auc": 0.9523696483927724,
+      "pr_auc": 0.7733414455226862,
+      "anomaly_events": 8,
+      "events_detected": 5,
+      "event_recall": 0.625
+    }
+  ],
+  "ml_info": {
+    "rows_total": 4244,
+    "features": 68,
+    "train_rows": 2970,
+    "test_rows": 1274,
+    "train_end": "2026-09-16 02:44:00",
+    "test_start": "2026-09-16 02:45:00",
+    "positive_rate_train": 0.1164983164983165,
+    "positive_rate_test": 0.09576138147566719,
+    "tuned_threshold": 0.4799999999999999,
+    "tuned_threshold_f1": 0.852017937219731
+  },
+  "classification": [
+    {
+      "model": "gradient boosting, default threshold",
+      "threshold": 0.5,
+      "precision": 0.9405940594059405,
+      "recall": 0.7786885245901639,
+      "f1": 0.852017937219731,
+      "roc_auc": 0.9534096083788707,
+      "pr_auc": 0.8315838407747885,
+      "positives": 122,
+      "predicted_positives": 101
+    },
+    {
+      "model": "gradient boosting, tuned threshold",
+      "threshold": 0.4799999999999999,
+      "precision": 0.9405940594059405,
+      "recall": 0.7786885245901639,
+      "f1": 0.852017937219731,
+      "roc_auc": 0.9534096083788707,
+      "pr_auc": 0.8315838407747885,
+      "positives": 122,
+      "predicted_positives": 101
+    },
+    {
+      "model": "current detector forwarded as prediction",
+      "threshold": 3.5,
+      "precision": 0.5263157894736842,
+      "recall": 0.819672131147541,
+      "f1": 0.6410256410256411,
+      "roc_auc": 0.9086158071493624,
+      "pr_auc": 0.5664618828519253,
+      "positives": 122,
+      "predicted_positives": 190
+    }
+  ],
+  "onset": [
+    {
+      "model": "gradient boosting, tuned threshold",
+      "onset_minutes": 8,
+      "onset_recall": 0.0,
+      "ongoing_recall": 0.8333333333333334
+    },
+    {
+      "model": "current detector forwarded as prediction",
+      "onset_minutes": 8,
+      "onset_recall": 0.25,
+      "ongoing_recall": 0.8596491228070176
+    }
+  ],
+  "importance": [
+    {
+      "feature": "requests_lag1",
+      "roc_auc_drop": 0.07174977231329693
+    },
+    {
+      "feature": "latency_p50_lag1",
+      "roc_auc_drop": 0.010224556010928976
+    },
+    {
+      "feature": "requests_ratio_15",
+      "roc_auc_drop": 0.008950933515482595
+    },
+    {
+      "feature": "requests_lag2",
+      "roc_auc_drop": 0.004262010473588429
+    },
+    {
+      "feature": "latency_p95_mean60",
+      "roc_auc_drop": 0.004119706284153035
+    },
+    {
+      "feature": "latency_p95_std60",
+      "roc_auc_drop": 0.003692793715847076
+    },
+    {
+      "feature": "latency_p50_lag2",
+      "roc_auc_drop": 0.0033156876138433766
+    },
+    {
+      "feature": "requests_mean60",
+      "roc_auc_drop": 0.003308572404371546
+    },
+    {
+      "feature": "error_rate_mean60",
+      "roc_auc_drop": 0.002653973132969112
+    },
+    {
+      "feature": "error_rate_mean15",
+      "roc_auc_drop": 0.002127447632058299
+    },
+    {
+      "feature": "latency_p95_lag15",
+      "roc_auc_drop": 0.002077641165756039
+    },
+    {
+      "feature": "latency_p95_max5",
+      "roc_auc_drop": 0.0017788023679417009
+    }
+  ]
+}

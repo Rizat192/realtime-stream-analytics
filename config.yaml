@@ -1,0 +1,90 @@
+seed: 42
+
+paths:
+  data: data
+  results: results
+  figures: figures
+  models: models
+
+generator:
+  start: "2026-09-14 00:00:00"
+  minutes: 4320
+  endpoints:
+    - name: "/api/v1/login"
+      base_rate: 12.0
+      base_latency: 140.0
+      latency_sigma: 0.45
+      error_rate: 0.015
+    - name: "/api/v1/search"
+      base_rate: 22.0
+      base_latency: 95.0
+      latency_sigma: 0.55
+      error_rate: 0.010
+    - name: "/api/v1/cart"
+      base_rate: 9.0
+      base_latency: 80.0
+      latency_sigma: 0.40
+      error_rate: 0.012
+    - name: "/api/v1/checkout"
+      base_rate: 5.0
+      base_latency: 210.0
+      latency_sigma: 0.50
+      error_rate: 0.020
+    - name: "/api/v1/recommend"
+      base_rate: 8.0
+      base_latency: 160.0
+      latency_sigma: 0.60
+      error_rate: 0.008
+    - name: "/api/v1/health"
+      base_rate: 4.0
+      base_latency: 15.0
+      latency_sigma: 0.25
+      error_rate: 0.001
+  regions: ["eu", "us", "apac"]
+  region_weights: [0.45, 0.35, 0.20]
+  diurnal_amplitude: 0.55
+  secondary_amplitude: 0.18
+  weekend_factor: 0.72
+  noise_sigma: 0.08
+  anomalies:
+    count: 30
+    min_duration: 6
+    max_duration: 24
+    min_gap: 40
+    types: ["latency_spike", "error_burst", "traffic_drop", "traffic_surge"]
+    type_weights: [0.30, 0.30, 0.20, 0.20]
+    latency_multiplier: 4.5
+    error_rate_level: 0.38
+    drop_multiplier: 0.12
+    surge_multiplier: 2.8
+
+timeseries:
+  freq: "1min"
+  rolling_window: 15
+  trend_window: 60
+  seasonal_period: 1440
+
+anomaly:
+  zscore_window: 180
+  zscore_min_periods: 60
+  zscore_threshold: 3.5
+  iforest_contamination: 0.04
+  iforest_estimators: 200
+
+ml:
+  test_fraction: 0.30
+  horizon: 1
+  lags: [1, 2, 3, 5, 10, 15]
+  roll_windows: [5, 15, 60]
+  classifier_threshold: 0.50
+
+pipeline:
+  producers: 2
+  partitions: 4
+  scoring_workers: 2
+  speed_factor: 1800
+  base_port: 51500
+  startup_grace: 15
+  watermark_minutes: 20
+  window_seconds: 60
+  metrics_interval: 1.0
